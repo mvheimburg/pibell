@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "fletbell"
+version = "0.1.0"
+description = ""
+authors = ["mvheimburg <Martin.Heimburg@sintef.no>"]
+license = "GPL"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flet = "^0.1.61"
+pydantic = "^1.10.2"
+paho-mqtt = "^1.6.1"
+rpi-backlight = "^2.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
