@@ -38,9 +38,14 @@ class ImgCarousell(UserControl):
             "familie/2.png",
             "familie/3.png",]
             
+
+    def __init__(self, parent):
+        super().__init__()
+        self.parent = parent
+        self.current_img = 0
+
     def build(self):
         print("building")
-        self.current_img = 0
         self.img = Image(
                     src=self.images[self.current_img],
                     width=300,
@@ -65,11 +70,11 @@ class ImgCarousell(UserControl):
                     height=300,
                     fit="contain",
                 )
-        txt_number=str(self.current_img)
         print(f"cycle {self.current_img}")
         print(f"cycle {self.images[self.current_img]}")
         print(f"cycle {self.img}")
         self.update()
+        self.parent.update_txt(self.current_img)
 
     def update(self):
         super().update()
@@ -88,47 +93,41 @@ class Test():
         
         self.page.title = "Calc App"
         self.page.update()
-        txt_number = TextField(value="0", text_align="right", width=100)
-        calcpage = CalculatorApp()
-        carousell = ImgCarousell()
+        self.txt_number = TextField(value="0", text_align="right", width=100)
+        self.calcpage = CalculatorApp()
+        self.carousell = ImgCarousell(parent=self)
 
-        self.page.add(txt_number)
-        self.page.add(calcpage)
-        self.page.add(carousell)
-
-
+        self.page.add(self.txt_number)
+        self.page.add(self.calcpage)
+        self.page.add(self.carousell)
 
 
-        # create application instance
-        # add application's root control to the page
-
-
-    # def cycle(current_img):
-    # while True:
-
-
-    # x=threading.Thread(target=cycle, args=(current_img))
-    # x.start()
+    def update_txt(self, i):
+        print("new number")
+        self.txt_number.value=i
+        self.page.update()
+        
 
     def run(self):
-        flet.app(target=self.main, assets_dir="/assets")
+        flet.app(target=self.main, assets_dir="../assets")
 
 
-# class BellApp():
 
-#     def __init__(self):
-#         self.main()
+# def main(page:Page):
+#     page=page
+#     page.horizontal_alignment = "center"
+#     print("MAIN")
+#     # _mqttc = mqtt.Client(MQTT_CLIENT_ID)
+    
+#     page.title = "Calc App"
+#     # page.update()
+#     txt_number = TextField(value="0", text_align="right", width=100)
+#     calcpage = CalculatorApp()
+#     carousell = ImgCarousell(parent=page)
 
-#     def main(self, page:Page=Page):
+#     page.add(txt_number)
+#     page.add(calcpage)
+#     page.add(carousell)
 
-#         _mqttc = mqtt.Client(MQTT_CLIENT_ID)
 
-#         page.title = "Calc App"
-#         # create application instance
-#         calcpage = CalculatorApp()
-
-#         # add application's root control to the page
-#         page.add(calcpage)
-
-#     def run(self):
-#         flet.app(target=self.main)
+# flet.app(target=main, assets_dir="../assets")

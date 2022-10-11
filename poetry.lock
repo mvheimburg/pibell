@@ -226,8 +226,8 @@ test = ["websockets"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.10"
-content-hash = "c9885444bc72f6a2e1d6bd245585d8b8df7ca00aa7e7bbde6b25e5ecad46c273"
+python-versions = "^3.8"
+content-hash = "45204327591744f21f57e7cbe3319095310a67078a868bea721d7975796ed954"
 
 [metadata.files]
 beartype = [
