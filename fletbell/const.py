@@ -1,33 +1,48 @@
 from os import environ
 from enum import IntEnum
 
-class MODE_COMMAND_PAYLOAD():
-    NORMAL="normal"
-    HALLOWEEN="halloween"
-    CHRISTMAS="christmas"
 
-class BELL_COMMAND_PAYLOAD():
-    DO="do"
+class MQTT_IDENTIFIERS():
+    GATE="gate"
+    DOOR="door"
+    BELL="bell"
+    HOUSE="house"
 
-class DOORLOCK_COMMAND_PAYLOAD():
-    LOCK="LOCK"
-    UNLOCK="UNLOCK"
+class MQTT_END():
+    COMMAND="cmd"
+    STATE="state"
 
-class DOORLOCK_STATE():
-    LOCKED="LOCKED"
-    UNLOCKED="UNLOCKED"
+class HOUSE_TOPICS():
+    PARTYMODE="partymode"
+    STATE="state"
+
+# class PARTYMODE_COMMAND_PAYLOAD():
+#     NORMAL="normal"
+#     HALLOWEEN="halloween"
+#     CHRISTMAS="christmas"
+
+# class BELL_COMMAND_PAYLOAD():
+#     DO="do"
+
+# class DOORLOCK_COMMAND_PAYLOAD():
+#     LOCK="LOCK"
+#     UNLOCK="UNLOCK"
+
+# class DOORLOCK_STATE():
+#     LOCKED="LOCKED"
+#     UNLOCKED="UNLOCKED"
 
 
-class GARAGE_COMMAND_PAYLOAD():
-    OPEN="OPEN"
-    CLOSE="CLOSE"
-    STOP="STOP"
+# class GARAGE_COMMAND_PAYLOAD():
+#     OPEN="OPEN"
+#     CLOSE="CLOSE"
+#     STOP="STOP"
 
-class GARAGE_STATUS_PAYLOAD():
-    OPEN="open"
-    OPENING="opening"
-    CLOSED="closed"
-    CLOSING="closing"
+# class GARAGE_STATUS_PAYLOAD():
+#     OPEN="open"
+#     OPENING="opening"
+#     CLOSED="closed"
+#     CLOSING="closing"
 
 
 SCREEN_TIMER = 20
@@ -41,13 +56,7 @@ SCREEN_HEIGHT = 480
 LEFT_BOX_WIDTH = SCREEN_HEIGHT
 RIGHT_BOX_WIDTH = SCREEN_WIDTH - LEFT_BOX_WIDTH
 
-MQTT_BROKER     =environ.get('MQTT_BROKER','mqtt')
-MQTT_PORT       =int(environ.get('MQTT_PORT',1883))
-MQTT_USERNAME   =environ.get('MQTT_USERNAME','mqtt')
-MQTT_PASSWORD   =environ.get('MQTT_PASSWORD','mqtt')
-MQTT_CLIENT_ID  =environ.get('MQTT_CLIENT_ID','mqtt')
 
-LOCKMASTER_URL  =environ.get('LOCKMASTER_URL','lockmaster')
 
 NoneType = type(None)
 

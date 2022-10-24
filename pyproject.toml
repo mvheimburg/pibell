@@ -12,6 +12,7 @@ flet = "^0.1.61"
 pydantic = "^1.10.2"
 paho-mqtt = "^1.6.1"
 rpi-backlight = "^2.5.0"
+PyYAML = "^6.0"
 
 
 [build-system]
