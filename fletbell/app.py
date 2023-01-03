@@ -29,6 +29,7 @@ from flet import (
 import paho.mqtt.client as pmqtt
 import glob
 import pathlib
+# import asyncio
 
 
 from fletbell.const import(
@@ -50,7 +51,7 @@ from fletbell.core import (
     House,
     MqttTopics
 )
-from fletbell.widgets.buttons import DoorButton, GarageButton
+from fletbell.widgets.buttons import DoorButton, GarageButton, HouseButton
 
 
 
@@ -68,7 +69,7 @@ class App:
         # self.doors = [DoorModel(**door, id=id, state_t=f"{MQTT_IDENTIFIERS.DOOR}/{id}/{MQTT_END.STATE}") for id, door in cfg['doors'].items()]
         self.doors = [DoorModel(**door, id=id, state_t=f"{MQTT_IDENTIFIERS.DOOR}/{id}/{MQTT_END.STATE}", button=DoorButton(door['pretty'])) for id, door in cfg['doors'].items()]
         self.gates = [GateModel(**gate, id=id, command_t=f"{MQTT_IDENTIFIERS.GATE}/{id}/{MQTT_END.COMMAND}", state_t=f"{MQTT_IDENTIFIERS.GATE}/{id}/{MQTT_END.STATE}", button=GarageButton(g_up=self.g_up, g_down=self.g_down, g_stop=self.g_stop)) for id, gate in cfg['gates'].items()]
-        self.house=House()
+        self.house=House(button=HouseButton(house_state=self.house_state))
         self.bell=MqttTopics(command_t=f"{MQTT_IDENTIFIERS.BELL}/toggle/{MQTT_END.COMMAND}")
         # if lockmaster_url is None:
         #    lockmaster_url=environ.get('LOCKMASTER_URL','lockmaster')
@@ -77,7 +78,7 @@ class App:
 
         ## Build graphics
         self.main_page = MainPage(app=self, assets_dir=self.assets_dir, cycle_time=10)
-        self.control_page = ControlPage(app=self, doors=self.doors, gates=self.gates)
+        self.control_page = ControlPage(app=self, doors=self.doors, gates=self.gates, house=self.house)
         self.control_page.visible=False
 
         self.st= Stack([
@@ -114,6 +115,8 @@ class App:
 
 
     # def login(self):
+    def house_state(self, *args):
+        pass
 
     def g_up(self, *args):
         pass

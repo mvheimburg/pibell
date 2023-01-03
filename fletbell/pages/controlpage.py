@@ -35,6 +35,7 @@ from fletbell.const import(
     ,SCREEN_WIDTH
 )
 
+from fletbell.widgets.buttons import HouseButton
 
 
 # class DoorControl(UserControl):
@@ -84,11 +85,12 @@ from fletbell.const import(
 #         )   
         
 class ControlPage(UserControl):
-    def __init__(self, app, doors, gates):
+    def __init__(self, app, doors, gates, house):
         super().__init__()
         self.app = app
         self.doors=doors
         self.gates=gates
+        self.house=house
         # for door in self.doors:
         #     door.make_gui()
 
@@ -109,35 +111,53 @@ class ControlPage(UserControl):
             padding=0,
             # alignment=alignment.START,
             content=Column(
-                alignment="start",
-                controls=[
-                    Row(controls=[IconButton(
-                                icon=icons.EXIT_TO_APP,
+                    controls=[
+                        Container(
+                            width=SCREEN_WIDTH,
+                            height=20,
+                            bgcolor=colors.WHITE24,
+                            opacity=1,
+                            # border_radius=border_radius.all(20),
+                            padding=0,
+                            # alignment=alignment.START,
+                            content=Row(       
+                                controls=[IconButton(
+                                        icon=icons.EXIT_TO_APP,
+                                        bgcolor=colors.WHITE24,
+                                        on_click=self.exit
+                                        # color=colors.WHITE,
+                                        # expand=1,
+                                    ),
+                                    IconButton(
+                                        icon=icons.LIGHT_OUTLINED,
+                                        bgcolor=colors.WHITE24,
+                                        on_click=self.app.goto_lightcontrol
+                                        # color=colors.WHITE,
+                                        # expand=1,
+                                    )],alignment="start"),),
+                        Row(controls=[
+                            Container(
+                                width=SCREEN_HEIGHT,
+                                height=SCREEN_HEIGHT-20,
                                 bgcolor=colors.WHITE24,
-                                on_click=self.exit
-                                # color=colors.WHITE,
-                                # expand=1,
-                            ),
-                            IconButton(
-                                icon=icons.LIGHT_OUTLINED,
-                                bgcolor=colors.WHITE24,
-                                on_click=self.app.goto_lightcontrol
-                                # color=colors.WHITE,
-                                # expand=1,
-                            )],alignment="start"),
-
-                    Row(
-                        controls=[  Icon(name=icons.DOOR_FRONT_DOOR_OUTLINED, color=colors.PINK, size=200),
-                                    Column(
-                                    controls=[door.button for door in self.doors]
-                                        )],
-                        ),
-                     Row(
-                        controls=[  Icon(name=icons.GARAGE_OUTLINED, color=colors.PINK, size=200),
-                                    Column(controls=[gate.button for gate in self.gates]),
-                                ],
-                        ),
-
-                ]
+                                opacity=1,
+                                # border_radius=border_radius.all(20),
+                                padding=0,
+                                # alignment=alignment.START,
+                                content=Column(
+                                    controls=[
+                                        Row(controls=[  Icon(name=icons.DOOR_FRONT_DOOR_OUTLINED, color=colors.PINK, size=200),
+                                                        Column(
+                                                        controls=[door.button for door in self.doors]
+                                                            )],
+                                            ),
+                                        Row(controls=[  Icon(name=icons.GARAGE_OUTLINED, color=colors.PINK, size=200),
+                                                        Column(controls=[gate.button for gate in self.gates]),
+                                                    ],
+                                            ),]
+                                    ),),
+                                self.house.button,
+                                ])
+                    ]
                 )
         )

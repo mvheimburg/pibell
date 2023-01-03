@@ -88,26 +88,26 @@ class HouseButton(UserControl):
     
     def build(self):
         return Column(controls=[FloatingActionButton(
-                            icon=icons.ARROW_CIRCLE_UP_OUTLINED,
+                            icon=icons.OTHER_HOUSES_OUTLINED,
                             text="Forlat hus",
                             bgcolor=colors.WHITE,
-                            on_click=self.g_up
+                            on_click=self.house_state
                             # color=colors.WHITE,
                             # expand=1,
                         ),
                         FloatingActionButton(
-                            icon=icons.STOP_CIRCLE_OUTLINED,
+                            icon=icons.HOUSE_ROUNDED,
                             text="Kom hjem",
                             bgcolor=colors.WHITE,
-                            on_click=self.g_stop
+                            on_click=self.house_state
                             # color=colors.WHITE,
                             # expand=1,
                         ),
                         FloatingActionButton(
-                            icon=icons.ARROW_CIRCLE_DOWN_OUTLINED,
+                            icon=icons.AIRPLANEMODE_ACTIVE,
                             text="Dra på ferie",
                             bgcolor=colors.WHITE,
-                            on_click=self.g_down
+                            on_click=self.house_state
                             # color=colors.WHITE,
                             # expand=1,
                         )

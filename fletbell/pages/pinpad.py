@@ -49,57 +49,7 @@ class PinPad(UserControl):
         self.generate_key_text()
 
 
-    def clean_key(self):
-        self.key = blank_key()
-        self.idx = 0
-        print(self.key)
-        self.update_key_row()
-
-    # @staticmethod
-    def generate_key_text(self):
-        self.key_text = [Text(value=x, color=colors.WHITE, size=50) for x in self.key]
-
-    def update_key_row(self):
-        self.generate_key_text()
-        self.update()
-        print(self.key)
-        print(self.key_text)
-
-    def key_press(self, e):
-        if self.idx < PIN_SIZE:
-            self.key[self.idx]=e.control.key
-            self.update_key_row()
-            self.idx=min(self.idx+1,PIN_SIZE)
-    
-    def update(self):
-        self.controls[0].content.controls[1].controls = self.key_text
-        super().update()
-
-
-    def backspace(self, e):
-        if self.idx == PIN_SIZE:
-            self.idx=PIN_SIZE-1
-        if self.idx >= 0:
-            self.key[self.idx]="_"
-            self.idx=max(self.idx-1,0)
-            self.update_key_row()
-            self.update()
-
-    def hide_login(self, e):
-        print("HIDE LOGIN")
-        self.clean_key()
-        self.parent.hide_login()
-
-    def try_login(self, e):
-        print("HIDE LOGIN")
-        success = self.app.try_login()
-        if success:
-            self.clean_key()
-            self.parent.hide_login()
-
-    def build(self):
-        # application's root control (i.e. "view") containing all other controls
-        return Container(
+        self.c = Container(
             width=SCREEN_HEIGHT,
             height=SCREEN_HEIGHT,
             bgcolor=colors.TRANSPARENT,
@@ -189,3 +139,147 @@ class PinPad(UserControl):
                 ]
             ),
         )
+
+
+    def clean_key(self):
+        self.key = blank_key()
+        self.idx = 0
+        print(self.key)
+        self.update_key_row()
+
+    # @staticmethod
+    def generate_key_text(self):
+        self.key_text = [Text(value=x, color=colors.WHITE, size=50) for x in self.key]
+
+    def update_key_row(self):
+        self.generate_key_text()
+        self.update()
+        print(self.key)
+        print(self.key_text)
+
+    def key_press(self, e):
+        if self.idx < PIN_SIZE:
+            self.key[self.idx]=e.control.key
+            self.update_key_row()
+            self.idx=min(self.idx+1,PIN_SIZE)
+    
+    def update(self):
+        # self.controls[0].content.controls[1].controls = self.key_text
+        self.c.content.controls[1].controls = self.key_text
+        super().update()
+
+
+    def backspace(self, e):
+        if self.idx == PIN_SIZE:
+            self.idx=PIN_SIZE-1
+        if self.idx >= 0:
+            self.key[self.idx]="_"
+            self.idx=max(self.idx-1,0)
+            self.update_key_row()
+            self.update()
+
+    def hide_login(self, e):
+        print("HIDE LOGIN")
+        self.clean_key()
+        self.parent.hide_login()
+
+    def try_login(self, e):
+        print("HIDE LOGIN")
+        success = self.app.try_login()
+        if success:
+            self.clean_key()
+            self.parent.hide_login()
+
+    def build(self):
+        # application's root control (i.e. "view") containing all other controls
+        return self.c
+        # Container(
+        #     width=SCREEN_HEIGHT,
+        #     height=SCREEN_HEIGHT,
+        #     bgcolor=colors.TRANSPARENT,
+        #     opacity=1,
+        #     border_radius=border_radius.all(20),
+        #     padding=20,
+        #     content=Column(
+        #         controls=[
+        #             Row(controls=[IconButton(
+        #                         icon=icons.EXIT_TO_APP,
+        #                         bgcolor=colors.WHITE24,
+        #                         on_click=self.hide_login
+        #                         # color=colors.WHITE,
+        #                         # expand=1,
+        #                     )],alignment="start"),
+        #             Row(controls=self.key_text, alignment="center"),
+        #             Row(
+        #                 controls=[
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=7
+        #                     ),
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=8
+        #                     ),
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=9
+        #                     ),
+        #                 ]
+        #             ),
+        #             Row(
+        #                 controls=[
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=4
+        #                     ),
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=5
+        #                     ),
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=6
+        #                     ),
+        #                 ]
+        #             ),
+        #             Row(
+        #                 controls=[
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=1
+        #                     ),
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=2
+        #                     ),
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=3
+        #                     ),
+        #                 ]
+        #             ),
+        #             Row(
+        #                 controls=[
+        #                     IconButton(
+        #                         icon=icons.KEYBOARD_BACKSPACE,
+        #                         bgcolor=colors.WHITE24,
+        #                         # color=colors.WHITE,
+        #                         expand=1,
+        #                         on_click=self.backspace
+        #                     ),
+        #                     PinButton(
+        #                         parent=self,
+        #                         key=0
+        #                     ),
+        #                     IconButton(
+        #                         icon=icons.LOGIN,
+        #                         bgcolor=colors.WHITE24,
+        #                         # color=colors.WHITE,
+        #                         expand=1,
+        #                         on_click=self.try_login
+        #                     ),
+        #                 ]
+        #             ),
+        #         ]
+        #     ),
+        # )

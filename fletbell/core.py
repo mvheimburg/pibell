@@ -7,7 +7,7 @@ from os import environ
 
 
 from fletbell.const import MQTT_IDENTIFIERS, HOUSE_TOPICS, MQTT_END
-from fletbell.widgets.buttons import DoorButton, GarageButton
+from fletbell.widgets.buttons import DoorButton, GarageButton, HouseButton
 
 class MqttTopics(BaseModel):
     command_t: Optional[str]
@@ -71,11 +71,15 @@ class PartyMode(MqttTopics):
 class HouseState(MqttTopics):
     current: str = "Unknown"
 
+
+     
+
 class House(BaseModel):
     partymode:PartyMode=PartyMode(command_t=f"{MQTT_IDENTIFIERS.HOUSE}/{HOUSE_TOPICS.PARTYMODE}/{MQTT_END.COMMAND}", state_t=f"{MQTT_IDENTIFIERS.HOUSE}/{HOUSE_TOPICS.PARTYMODE}/{MQTT_END.STATE}")
     state: HouseState=HouseState(command_t=f"{MQTT_IDENTIFIERS.HOUSE}/{HOUSE_TOPICS.STATE}/{MQTT_END.COMMAND}", state_t=f"{MQTT_IDENTIFIERS.HOUSE}/{HOUSE_TOPICS.STATE}/{MQTT_END.STATE}")
-
-
+    button: Optional[HouseButton]
+    class Config():
+        arbitrary_types_allowed=True
 
 # class Config():
 #     mqtt: MqttConfig
